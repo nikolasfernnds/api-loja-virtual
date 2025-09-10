@@ -14,7 +14,10 @@ router.get('/:id', productController.getProductById)
 
 router.get('/name/:name', productController.getProductByName)
 
-//Rota para criar um novo usuário
-//router.post('/', userController.createUser)
+router.post('/', productController.createProduct)
+
+router.patch('/:id', productController.updateProducts)
+
+router.delete('/:id', productController.deletarProduct)
 
 module.exports = router;

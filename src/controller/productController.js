@@ -28,15 +28,15 @@ const getProductById = (req, res) => {
 const createProduct = (req, res) => {
 
     //Pegando os dados que foram enviados pelo Body (Corpo) da Requisiçao
-    const {nome, descricao, preco, categoria, estoque, ativo} = req.body;
+    const {name, descricao, preco, categoria, estoque, ativo} = req.body
 
     //Validar se foram enviados
-    if(!nome || !descricao || !preco || !categoria || !estoque || !ativo){
+    if(!name || !descricao || !preco || !categoria || !estoque || !ativo){
         return res.status(400).json({mensagem: 'Todos os dados são obrigatórios'})
     } 
     
     else{
-        const newProduct = productModel.create({nome, descricao, preco, categoria, estoque, ativo});
+        const newProduct = productModel.create({name, descricao, preco, categoria, estoque, ativo});
         res.status(201).json(newProduct);
     }
 }
@@ -56,11 +56,32 @@ const getProductByName = (req, res) => {
     }
 };
 
+const updateProducts = (req, res) => {
+    const {name, descricao, preco, categoria, estoque, ativo} = req.body;
+    let id = parseInt(req.params.id)
+
+    const updateProd = productModel.update(id, {name, descricao, preco, categoria, estoque, ativo})
+    res.status(200).json(updateProd)
+}
+
+const deletarProduct = (req, res) => {
+    let id = parseInt(req.params.id)
+
+    if(id){
+        productModel.deleteProduct(id)
+        res.status(200).json(id)
+    } else{
+        res.status(404).json({mensagem: "Produto não encontrado!"})
+    }
+}
+
 
 
 module.exports = {
     getAllProducts,
     getProductById,
     createProduct,
-    getProductByName
+    getProductByName,
+    updateProducts,
+    deletarProduct
 }

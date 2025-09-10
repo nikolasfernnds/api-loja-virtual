@@ -7,6 +7,7 @@ const app = express()
 //DEFINIR A PORTA EM QUE O SERVIDOR IRÁ EXECUTAR
 const porta = 7000
 
+app.use(express.json())
 //DEFINIR A ROTA DE TESTE DA API
 app.get('/', (req, res) => {
     res.send("API de Produtos está funcionando!")
@@ -20,4 +21,3 @@ app.listen(porta, () =>{
 app.use('/api/products', productRoutes)
 app.use('/api/products/name', productRoutes)
 
-app.use(express.json())
